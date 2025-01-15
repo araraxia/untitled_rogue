@@ -1,0 +1,27 @@
+{
+    "display": {
+        "type": "windowed",
+        "width": 1200,
+        "height": 800,
+        "font": "Courier",
+        "fontSize": 12,
+        "fontWeight": "normal"
+    },
+    "colors": {
+        "background": "#000000",
+        "foreground": "#FFFFFF"
+    },
+    "keybinds": {
+        "up": "ArrowUp",
+        "down": "ArrowDown",
+        "left": "ArrowLeft",
+        "right": "ArrowRight",
+        "button_1": "Z",
+        "button_2": "X",
+        "button_3": "C",
+        "button_4": "A",
+        "button_5": "S",
+        "button_6": "D",
+        "pause": "Escape"
+    }
+}
