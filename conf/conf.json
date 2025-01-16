@@ -3,13 +3,17 @@
         "type": "windowed",
         "width": 1200,
         "height": 800,
-        "font": "Courier",
+        "fontFamily": "Courier",
         "fontSize": 12,
-        "fontWeight": "normal"
+        "fontWeight": "normal",
+        "framePadding": 4,
+        "highlightThickness": 4
     },
     "colors": {
         "background": "#000000",
-        "foreground": "#FFFFFF"
+        "foreground": "#FFFFFF",
+        "border": "#d1bd52",
+        "border2": "#6e6847"
     },
     "keybinds": {
         "up": "ArrowUp",

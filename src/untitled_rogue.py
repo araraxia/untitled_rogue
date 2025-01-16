@@ -33,9 +33,7 @@ def main():
     
     untgap = Untgap(
         root=root,
-        width=display['width'],
-        height=display['height'],
-        bg=colors['background']
+        conf_path = CONFIG_PATH
         )
     
     root.mainloop()
