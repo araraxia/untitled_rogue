@@ -7,13 +7,23 @@
         "fontSize": 12,
         "fontWeight": "normal",
         "framePadding": 4,
-        "highlightThickness": 4
+        "highlightThickness": 4,
+        "frameRelief": "ridge",
+        "resizable": false
     },
     "colors": {
         "background": "#000000",
         "foreground": "#FFFFFF",
-        "border": "#d1bd52",
-        "border2": "#6e6847"
+        "frame": "#d1bd52",
+        "border2": "#6e6847",
+        "color1": "",
+        "color2": "",
+        "color3": "",
+        "color4": "",
+        "color5": "",
+        "color6": "",
+        "color7": "",
+        "color8": ""
     },
     "keybinds": {
         "up": "ArrowUp",
@@ -27,5 +37,11 @@
         "button_5": "S",
         "button_6": "D",
         "pause": "Escape"
+    },
+    "header": {
+        "pady": 4
+    },
+    "footer": {
+        "pady": 4
     }
 }

@@ -25,9 +25,6 @@ def load_conf(path=CONFIG_PATH):
     return config
 
 def main():
-    config = load_conf()
-    colors = config['colors']
-    display = config['display']
     
     root = tk.Tk()
     
