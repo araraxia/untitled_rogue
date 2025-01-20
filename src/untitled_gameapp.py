@@ -51,16 +51,20 @@ class Untgap:
         self.root.bind('<KeyPress>', self.on_key_press)
         
         self.tile_x, self.tile_y, self.font_width, self.font_height, self.body_width, self.body_height = self.measure_font_size(self.font)
-
-        self.header_frame, self.body_frame, self.footer_frame = self.init_frames(self.font_height, self.header_conf['pady'], self.footer_conf['pady'])
         
-        if self.current_screen == "title_screen":
-            logger.debug("Loading title screen.")
-            self.title_label = self.init_title_screen()
-            self.load_title(self.title_label)
-            
-        #self.pack_game_frames()
-
+        self.init_components()
+        
+        
+    def destroy_all_widgets(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()    
+    
+    
+    def refresh_window(self):
+        logger.debug("Refreshing window.")
+        self.destroy_all_widgets()
+        self.init_components()
+    
     
     def load_conf(self, path):
         logger.debug("Loading configuration from %s", path)
@@ -72,15 +76,30 @@ class Untgap:
         return config
     
     
-    def pack_game_frames(self):
+    def init_components(self):
+        self.tile_x, self.tile_y, self.font_width, self.font_height, self.body_width, self.body_height = self.measure_font_size(self.font)
+        logger.debug(f"init_components - current_screen: {self.current_screen}")
+        
+        if self.current_screen == "title_screen":
+            logger.debug("Loading title screen.")
+            self.title_label = self.init_title_screen()
+            self.load_title(self.title_label, self.window_width // 2, self.window_height // 2)
+       
+        elif self.current_screen == "main_menu":
+            logger.debug("Loading main menu.")
+            game_frames = self.init_frames(self.font_height, self.header_conf['pady'], self.footer_conf['pady'])
+            self.pack_game_frames(game_frames)
+      
+    
+    def pack_game_frames(self, game_frames):
         logger.debug("Packing game frames.")
         
-        header_frame = self.header_frame[0]
-        header_border = self.header_frame[1]
-        body_frame = self.body_frame[0]
-        body_border = self.body_frame[1]
-        footer_frame = self.footer_frame[0]
-        footer_border = self.footer_frame[1]
+        header_frame = game_frames['header']['inner']
+        header_border = game_frames['header']['border']
+        body_frame = game_frames['body']['inner']
+        body_border = game_frames['body']['border']
+        footer_frame = game_frames['footer']['inner']
+        footer_border = game_frames['footer']['border']
         
         header_border.pack(side="top", fill="x", padx=self.frame_pad, pady=self.frame_pad)
         header_frame.pack(side="top", fill="x")
@@ -108,7 +127,12 @@ class Untgap:
             **kwargs
         )
         
-        return inner_frame, border_frame
+        frame = {
+            'inner': inner_frame,
+            'border': border_frame
+        }
+        
+        return frame
     
     
     def init_frames(self, font_height, head_pady, foot_pady):
@@ -123,21 +147,26 @@ class Untgap:
         logger.debug(f"Initializing footer frame.")
         footer_frame = self.create_frame(height=(font_height + foot_pady))
         
-        return header_frame, body_frame, footer_frame
+        game_frames = {
+            'header': header_frame, 
+            'body': body_frame, 
+            'footer': footer_frame
+        }
+        
+        return game_frames
 
     
-    def load_title(self, title):
-        title.grid(row=1, column=1, sticky="nsew")
+    def load_title(self, title_label, x_pos, y_pos):
+        title_label.place(x=x_pos, y=y_pos, anchor="center") 
         
     
-    
-    def init_title_screen(self): ##########Left off here
+    def init_title_screen(self): 
         logger.debug("Creating title screen.")
-        title_message = "untitled rogue"
-        title_text = tk.Text()
-        title_label = tk.Label(self.root, text=title_message)
-        
+        title_message = "untitled rogue\n\npress any key to start"
+        title_label = tk.Label(self.root, text=title_message, font=self.font, bg=self.bg, fg=self.fg)
+
         return title_label
+
 
     def measure_font_size(self, font_settings):
         logger.debug("Measuring font size.")
@@ -153,33 +182,33 @@ class Untgap:
         tile_x = body_width // width
         tile_y = body_height // height
         
-        #origin_point = (int((self.window_width % width) / 2), int((self.window_height % height) / 2))
-        
         logger.debug(f"Tile size in characters: {tile_x}x{tile_y}")
-        #logger.debug(f"Origin point: {origin_point}")
         logger.debug(f"Body frame height: {body_height}")
         logger.debug(f"Body frame width: {body_width}")
         
         return tile_x, tile_y, width, height, body_width, body_height
 
-
     # Event handlers
 
     def on_key_press(self, event):
         if self.current_screen == "title_screen":
+            logger.debug("Title screen key press.")
             self.title_screen_key_press(event)
         
-        if self.current_screen == "main_menu":
-            self.main_menu_key_press(event)
+        elif self.current_screen == "in_dungeon":
+            logger.debug("In dungeon key press.")
+            self.in_dungeon_key_press(event)
 
 
-    def main_menu_key_press(self, event):
+    def in_dungeon_key_press(self, event):
         if event.keysym == 'Escape':
-            self.root.quit()
+
             pass
         
         
     def title_screen_key_press(self, event):
-        if event.keysym == 'Escape':
-            self.current_screen == "main_menu"
-            pass
+        if event.keysym:
+            logger.debug("Go to main_menu - Key pressed: %s", event.keysym)
+            self.current_screen = "main_menu"
+            logger.debug(f"title_screen_key_press - current_screen: {self.current_screen}")
+            self.refresh_window()

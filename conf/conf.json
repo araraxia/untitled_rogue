@@ -43,5 +43,27 @@
     },
     "footer": {
         "pady": 4
+    },
+    "main_menu": {
+        "title_text":{
+            "text": "untitled rogue",
+            "fontFamily": "Courier",
+            "fontSize": 24,
+            "fontWeight": "bold",
+            "color": "color1"
+        },
+        "selected_option":{
+            "fontFamily": "Courier",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "color": "color2",
+            "bg": "color8"
+        },
+        "unselected_option":{
+            "fontFamily": "Courier",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "color": "color1"
+        }
     }
 }
