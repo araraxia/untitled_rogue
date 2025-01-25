@@ -16,14 +16,29 @@
         "foreground": "#FFFFFF",
         "frame": "#d1bd52",
         "border2": "#6e6847",
-        "color1": "",
-        "color2": "",
-        "color3": "",
-        "color4": "",
-        "color5": "",
-        "color6": "",
-        "color7": "",
-        "color8": ""
+        "color1": "#FF0000",
+        "color2": "#0000FF",
+        "color3": "#008000",
+        "color4": "#800080",
+        "color5": "#FFA500",
+        "color6": "#00FFFF",
+        "color7": "#FFC0CB",
+        "color8": "#A52A2A"
+    },
+    "color_names": {
+        "note": "this is never called, just a lil visual guide",
+        "background": "black",
+        "foreground": "white",
+        "frame": "yellow",
+        "border2": "darkgreen",
+        "color1": "red",
+        "color2": "blue",
+        "color3": "green",
+        "color4": "purple",
+        "color5": "orange",
+        "color6": "cyan",
+        "color7": "pink",
+        "color8": "brown"
     },
     "keybinds": {
         "up": "ArrowUp",
@@ -45,25 +60,34 @@
         "pady": 4
     },
     "main_menu": {
-        "title_text":{
+        "title":{
             "text": "untitled rogue",
             "fontFamily": "Courier",
             "fontSize": 24,
             "fontWeight": "bold",
-            "color": "color1"
+            "fg": "color1",
+            "bg": "color2"
         },
-        "selected_option":{
+        "selected":{
             "fontFamily": "Courier",
             "fontSize": 16,
             "fontWeight": "bold",
-            "color": "color2",
+            "fg": "color2",
             "bg": "color8"
         },
-        "unselected_option":{
+        "deselected":{
             "fontFamily": "Courier",
             "fontSize": 16,
             "fontWeight": "normal",
-            "color": "color1"
+            "fg": "color1",
+            "bg": "color2"
+        },
+        "disabled":{
+            "fontFamily": "Courier",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "fg": "color1",
+            "bg": "color3"
         }
     }
 }

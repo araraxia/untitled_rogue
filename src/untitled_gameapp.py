@@ -8,14 +8,14 @@ loggerdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'loggers')
 sys.path.append(loggerdir)        
 
 from untitled_logger import logger # type: ignore
-
+from main_menu import main_menu # type: ignore
 class Untgap:
     def __init__(self, root, conf_path='conf/conf.json'):
         
         logger.debug(f"Initializing Untitled Game Application with configuration file {conf_path}.")
-        conf = self.load_conf(conf_path)
+        self.conf = self.load_conf(conf_path)
         
-        self.display_conf = conf['display']
+        self.display_conf = self.conf['display']
         self.window_tyle = self.display_conf['type']
         self.window_width = self.display_conf['width']
         self.window_height = self.display_conf['height']
@@ -28,16 +28,16 @@ class Untgap:
         self.frame_relief = self.display_conf['frameRelief']
         self.resizable = self.display_conf['resizable']
         
-        self.color_conf = conf['colors']
+        self.color_conf = self.conf['colors']
         self.bg = self.color_conf['background']
         self.fg = self.color_conf['foreground']
         self.frame_color = self.color_conf['frame']
         self.border_bg = self.color_conf['border2']
         
-        self.header_conf = conf['header']
-        self.footer_conf = conf['footer']
+        self.header_conf = self.conf['header']
+        self.footer_conf = self.conf['footer']
         
-        self.keybind_conf = conf['keybinds']
+        self.keybind_conf = self.conf['keybinds']
         
         logger.debug("Initializing untitled game application.")
         self.root = root
@@ -52,11 +52,14 @@ class Untgap:
         
         self.tile_x, self.tile_y, self.font_width, self.font_height, self.body_width, self.body_height = self.measure_font_size(self.font)
         
+        self.loaded_widgets = []
+        
         self.init_components()
         
         
     def destroy_all_widgets(self):
-        for widget in self.root.winfo_children():
+        for widget in self.loaded_widgets:
+            logger.debug("Destroying widget: %s", widget)
             widget.destroy()    
     
     
@@ -83,12 +86,18 @@ class Untgap:
         if self.current_screen == "title_screen":
             logger.debug("Loading title screen.")
             self.title_label = self.init_title_screen()
+            self.loaded_widgets.append(self.title_label)
             self.load_title(self.title_label, self.window_width // 2, self.window_height // 2)
        
-        elif self.current_screen == "main_menu":
+        elif self.current_screen == "in_game":
             logger.debug("Loading main menu.")
             game_frames = self.init_frames(self.font_height, self.header_conf['pady'], self.footer_conf['pady'])
             self.pack_game_frames(game_frames)
+            
+        elif self.current_screen == "main_menu":
+            logger.debug("Loading main menu.")
+            self.main_menu = main_menu(self.root, self.conf)
+            self.main_menu.init_menu()
       
     
     def pack_game_frames(self, game_frames):
@@ -188,7 +197,7 @@ class Untgap:
         
         return tile_x, tile_y, width, height, body_width, body_height
 
-    # Event handlers
+    ### Event handlers ###
 
     def on_key_press(self, event):
         if self.current_screen == "title_screen":
