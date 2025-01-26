@@ -16,41 +16,53 @@
         "foreground": "#FFFFFF",
         "frame": "#d1bd52",
         "border2": "#6e6847",
-        "color1": "#FF0000",
-        "color2": "#0000FF",
-        "color3": "#008000",
-        "color4": "#800080",
-        "color5": "#FFA500",
-        "color6": "#00FFFF",
-        "color7": "#FFC0CB",
-        "color8": "#A52A2A"
+        "color1": "#F5E6CA",
+        "color2": "#D4A373",
+        "color3": "#F2B8B5",
+        "color4": "#C99AAB",
+        "color5": "#B5AEB3",
+        "color6": "#A3B9A5",
+        "color7": "#8C8D77",
+        "color8": "#D6CFC4",
+        "color9": "#AFCBFF",
+        "color10": "#6A9BAE",
+        "color11": "#F6AFA6",
+        "color12": "#F8E8A2",
+        "color13": "#735D78",
+        "color14": "#5E463A"
     },
     "color_names": {
         "note": "this is never called, just a lil visual guide",
         "background": "black",
         "foreground": "white",
-        "frame": "yellow",
-        "border2": "darkgreen",
-        "color1": "red",
-        "color2": "blue",
-        "color3": "green",
-        "color4": "purple",
-        "color5": "orange",
-        "color6": "cyan",
-        "color7": "pink",
-        "color8": "brown"
+        "frame": "gold",
+        "border2": "oldGold",
+        "color1": "warmBeige",
+        "color2": "mutedTerracotta",
+        "color3": "blushPink",
+        "color4": "dustyRose",
+        "color5": "lavenderGray",
+        "color6": "sageGreen",
+        "color7": "mutedOlive",
+        "color8": "warmTaupe",
+        "color9": "paleSkyBlue",
+        "color10": "mutedTeal",
+        "color11": "softCoral",
+        "color12": "paleYellow",
+        "color13": "plumPurple",
+        "color14": "chocolateBrown"
     },
     "keybinds": {
-        "up": "ArrowUp",
-        "down": "ArrowDown",
-        "left": "ArrowLeft",
-        "right": "ArrowRight",
-        "button_1": "Z",
-        "button_2": "X",
-        "button_3": "C",
-        "button_4": "A",
-        "button_5": "S",
-        "button_6": "D",
+        "up": "Up",
+        "down": "Down",
+        "left": "Left",
+        "right": "Right",
+        "button_1": "z",
+        "button_2": "x",
+        "button_3": "c",
+        "button_4": "a",
+        "button_5": "s",
+        "button_6": "d",
         "pause": "Escape"
     },
     "header": {
@@ -60,34 +72,38 @@
         "pady": 4
     },
     "main_menu": {
+        "padding": 20,
         "title":{
-            "text": "untitled rogue",
             "fontFamily": "Courier",
-            "fontSize": 24,
+            "fontSize": 48,
             "fontWeight": "bold",
-            "fg": "color1",
-            "bg": "color2"
+            "fg": "foreground",
+            "bg": "background",
+            "reduced": 0
         },
         "selected":{
             "fontFamily": "Courier",
-            "fontSize": 16,
+            "fontSize": 20,
             "fontWeight": "bold",
-            "fg": "color2",
-            "bg": "color8"
+            "fg": "foreground",
+            "bg": "background",
+            "reduced": 20
         },
         "deselected":{
             "fontFamily": "Courier",
-            "fontSize": 16,
+            "fontSize": 20,
             "fontWeight": "normal",
-            "fg": "color1",
-            "bg": "color2"
+            "fg": "foreground",
+            "bg": "background",
+            "reduced": 50
         },
         "disabled":{
             "fontFamily": "Courier",
-            "fontSize": 16,
-            "fontWeight": "normal",
-            "fg": "color1",
-            "bg": "color3"
+            "fontSize": 20,
+            "fontWeight": "italic",
+            "fg": "foreground",
+            "bg": "background",
+            "reduced": 80
         }
     }
 }

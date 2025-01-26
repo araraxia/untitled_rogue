@@ -52,22 +52,39 @@ class Untgap:
         
         self.tile_x, self.tile_y, self.font_width, self.font_height, self.body_width, self.body_height = self.measure_font_size(self.font)
         
-        self.loaded_widgets = []
-        
         self.init_components()
         
         
+    ### Gen Methods ###
+    def measure_font_size(self, font_settings):
+        logger.debug("Measuring font size.")
+        
+        test_font = font.Font(family=font_settings[0], size=font_settings[1], weight=font_settings[2])
+        width = test_font.measure("W")  # Measure the width of a character
+        height = test_font.metrics("linespace")  # Measure the height of a character
+        logger.debug(f"Character size in pixels: {width}x{height}")
+        
+        body_height = (self.window_height - (height * 2) - (self.frame_pad * 3) - (self.border_thickness * 3))
+        body_width = (self.window_width - self.frame_pad - self.border_thickness)
+        
+        tile_x = body_width // width
+        tile_y = body_height // height
+        
+        logger.debug(f"Tile size in characters: {tile_x}x{tile_y}")
+        logger.debug(f"Body frame height: {body_height}")
+        logger.debug(f"Body frame width: {body_width}")
+        
+        return tile_x, tile_y, width, height, body_width, body_height
+
     def destroy_all_widgets(self):
-        for widget in self.loaded_widgets:
-            logger.debug("Destroying widget: %s", widget)
-            widget.destroy()    
-    
+        for widget in self.root.winfo_children():
+            logger.debug(f"Destroying widget: {widget}")
+            widget.destroy()   
     
     def refresh_window(self):
         logger.debug("Refreshing window.")
         self.destroy_all_widgets()
         self.init_components()
-    
     
     def load_conf(self, path):
         logger.debug("Loading configuration from %s", path)
@@ -79,6 +96,7 @@ class Untgap:
         return config
     
     
+    ### Init Method ###
     def init_components(self):
         self.tile_x, self.tile_y, self.font_width, self.font_height, self.body_width, self.body_height = self.measure_font_size(self.font)
         logger.debug(f"init_components - current_screen: {self.current_screen}")
@@ -86,7 +104,6 @@ class Untgap:
         if self.current_screen == "title_screen":
             logger.debug("Loading title screen.")
             self.title_label = self.init_title_screen()
-            self.loaded_widgets.append(self.title_label)
             self.load_title(self.title_label, self.window_width // 2, self.window_height // 2)
        
         elif self.current_screen == "in_game":
@@ -95,11 +112,10 @@ class Untgap:
             self.pack_game_frames(game_frames)
             
         elif self.current_screen == "main_menu":
-            logger.debug("Loading main menu.")
-            self.main_menu = main_menu(self.root, self.conf)
-            self.main_menu.init_menu()
+            self.init_menu_screen()
+
       
-    
+    ### Game Frames ###
     def pack_game_frames(self, game_frames):
         logger.debug("Packing game frames.")
         
@@ -118,7 +134,6 @@ class Untgap:
         
         footer_border.pack(side="bottom", fill="x", padx=self.frame_pad, pady=self.frame_pad)
         footer_frame.pack(side="bottom", fill="x")
-    
     
     def create_frame(self, **kwargs):
         logger.debug("Creating frame objects.")
@@ -143,7 +158,6 @@ class Untgap:
         
         return frame
     
-    
     def init_frames(self, font_height, head_pady, foot_pady):
         logger.debug("Initializing frames.")
         
@@ -164,11 +178,11 @@ class Untgap:
         
         return game_frames
 
-    
+
+    ### Title Screen ###
     def load_title(self, title_label, x_pos, y_pos):
         title_label.place(x=x_pos, y=y_pos, anchor="center") 
         
-    
     def init_title_screen(self): 
         logger.debug("Creating title screen.")
         title_message = "untitled rogue\n\npress any key to start"
@@ -177,28 +191,13 @@ class Untgap:
         return title_label
 
 
-    def measure_font_size(self, font_settings):
-        logger.debug("Measuring font size.")
+    ### Main Menu ###
+    def init_menu_screen(self):
+        self.main_menu = main_menu(self.root, self.conf)
+        self.current_screen = self.main_menu.init_menu()
         
-        test_font = font.Font(family=font_settings[0], size=font_settings[1], weight=font_settings[2])
-        width = test_font.measure("W")  # Measure the width of a character
-        height = test_font.metrics("linespace")  # Measure the height of a character
-        logger.debug(f"Character size in pixels: {width}x{height}")
-        
-        body_height = (self.window_height - (height * 2) - (self.frame_pad * 3) - (self.border_thickness * 3))
-        body_width = (self.window_width - self.frame_pad - self.border_thickness)
-        
-        tile_x = body_width // width
-        tile_y = body_height // height
-        
-        logger.debug(f"Tile size in characters: {tile_x}x{tile_y}")
-        logger.debug(f"Body frame height: {body_height}")
-        logger.debug(f"Body frame width: {body_width}")
-        
-        return tile_x, tile_y, width, height, body_width, body_height
 
     ### Event handlers ###
-
     def on_key_press(self, event):
         if self.current_screen == "title_screen":
             logger.debug("Title screen key press.")
@@ -207,13 +206,19 @@ class Untgap:
         elif self.current_screen == "in_dungeon":
             logger.debug("In dungeon key press.")
             self.in_dungeon_key_press(event)
+            
+        elif self.current_screen == "main_menu":
+            logger.debug("Main menu key press.")
+            self.main_menu.handle_key_press(event)
 
+    def wait_for_key_press(self):
+        self.key_pressed = tk.StringVar()
+        self.root.wait_variable(self.key_pressed)
 
     def in_dungeon_key_press(self, event):
-        if event.keysym == 'Escape':
+        if event.keysym == self.keybind_conf['pause']:
 
             pass
-        
         
     def title_screen_key_press(self, event):
         if event.keysym:
