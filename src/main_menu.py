@@ -14,8 +14,11 @@ class main_menu:
     def __init__(self, root, conf):
         self.root = root
         self.current_screen = "main_menu"
+        self.sub_screen = ""
+
         
         self.conf = conf
+        self.color_conf = conf['colors']
         self.display_conf = conf['display']
         self.menu_conf = conf['main_menu']
         self.keybind_conf = conf['keybinds']
@@ -48,12 +51,28 @@ class main_menu:
             }
         ]
         
+        self.sub_frame = None
+        self.warning_menu = [
+            {
+                'text': 'Yes',
+                'command': self.new_game,
+                'state': 'deselected',
+            },
+            {
+                'text': 'No',
+                'command': self.back_to_menu,
+                'state': 'selected',
+            }
+        ]
+        
         self.check_for_save()
+    
     
     def check_for_save(self):
         logger.info('Checking for save file')
-        if os.path.exists('sav/save.json'):
+        if os.path.exists('sav/save.json') and self.menu[2]['state'] == 'disabled':
             self.menu[2]['state'] = 'deselected'
+    
     
     def handle_key_press(self, event):
         logger.debug(f'Key pressed: {event.keysym}')
@@ -77,6 +96,7 @@ class main_menu:
             self.jump_to_quit()
         
         return self.init_menu()
+    
     
     def jump_to_quit(self):
         for line in self.menu:
@@ -169,8 +189,40 @@ class main_menu:
         # Center the title label and place
         self.menu_label.place(relx=0.5, y=y_position, anchor='center')
             
+    def warning_overwrite_save(self):
+        logger.info('Warning overwrite save')
+        self.sub_screen = "warning_overwrite_save"
+        label_text = "A save file already exists. Do you want to overwrite it?"
+        choices = ["Yes", "No"]
+        
+        warning_frames = self.create_warning_frame()
+        
+    
+    def create_warning_frame(self):
+        frame_size = (self.root.winfo_width() // 4, self.root.winfo_height() // 4)
+        border_frame = (tk.Frame(self.root,
+                                width=frame_size[0],
+                                height=frame_size[1],
+                                bg=self.color_conf['frame'],
+                                borderwidth=self.display_conf['highlightThickness'],
+                                relief=self.display_conf['frameRelief']
+                                ))
+        
+        inner_frame = (tk.Frame(
+            self.root,
+            width=frame_size[0],
+            height=frame_size[1],
+            bg=self.color_conf['background']
+            ))
+        
+        return (inner_frame, border_frame)
+    
     def new_game(self):
         logger.info('New game selected')
+        
+        if os.path.exists('sav/save.json'):
+            if not self.warning_overwrite_save():
+                return
         pass
     
     def load_game(self):
