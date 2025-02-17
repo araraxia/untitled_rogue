@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import font
 
 from loggers.untitled_logger import logger
+from untitled_helper import untitledHelper
 
 class popup_menu:
     def __init__(
@@ -20,6 +21,9 @@ class popup_menu:
         width=None, 
         height=None, 
         padding=None,
+        bg=None,
+        borderWidth=None,
+        relief=None,
         max_visible=None,
         start_pos=0,
         jump_to=None,
@@ -33,7 +37,7 @@ class popup_menu:
         
         self.root = root
         self.last_screen = last_screen
-        
+    
         self.conf = conf
         self.popup_defaults = conf['pop_up_default']
         self.color_conf = conf['colors']
@@ -47,6 +51,9 @@ class popup_menu:
         self.padding = padding if padding else self.popup_defaults['padding']
         self.leading = leading if leading else self.popup_defaults['leading']
         self.pack_propagate = pack_propagate
+        self.bg = bg if bg else self.color_conf['background']
+        self.borderwidth = borderWidth if borderWidth else self.popup_defaults['borderwidth']
+        self.relief = relief if relief else self.popup_defaults['relief']
         
         self.max_visible = max_visible if max_visible else self.popup_defaults['max_visible']
         
@@ -59,6 +66,8 @@ class popup_menu:
         self.header_font = header_font if header_font else self.popup_defaults['header']
         
         self.popup_frame = None
+        self.border_frame = None
+        
         
         for index, option in enumerate(menu_options):
             state = 'deselected'
@@ -122,10 +131,14 @@ class popup_menu:
             
    
     def _check_pos_size(self):
-        font_set = {self.selected_font, self.deselected_font, self.disabled_font}
+        font_set = {self.header_font, self.selected_font, self.deselected_font, self.disabled_font}
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
 
+        # Create a list of all the text in the menu
+        text_list = [line['text'] for line in self.menu]
+        text_list.append(self.header)
+        
         # Autocalc missing frame width
         if not self.width:
             max_width = 0
@@ -172,17 +185,38 @@ class popup_menu:
         self._check_pos_size()
         
         # Create the popup frame with the given width and height
-        self.popup_frame = tk.Frame(self.root, width=self.width, height=self.height)
+        self.frame_package = untitledHelper.create_frame(
+            self.root, 
+            bg=self.bg,
+            borderwidth=self.borderwidth,
+            relief=self.relief,
+            width=self.width, 
+            height=self.height
+        )
+        
+        self.border_frame = self.frame_package['border']
+        self.popup_frame = self.frame_package['inner']
+        
+        self.border_frame.place(x=self.xpos, y=self.ypos)
+        self.popup_frame.pack_propagate(self.pack_propagate)
+        
         self.popup_frame.place(x=self.xpos, y=self.ypos)
-        self.popup_frame.pack_propagate(self.pack_propagate)  # Prevent the frame from resizing to fit its content
+        self.popup_frame.pack_propagate(self.pack_propagate)
+        
+        header = tk.Label(self.popup_frame, text=self.header, font=self.header_font)
+        header.pack(side='top', pady=self.padding)
         
         # Add menu items to the frame
         for line in self.menu:
             label = tk.Label(self.popup_frame, text=line['text'], font=self.deselected_font)
-            label.pack()
+            label.pack(side='top', pady=self.leading)
             if line['state'] == 'selected':
                 label.config(font=self.selected_font)
             elif line['state'] == 'disabled':
+                label.config(font=self.disabled_font)
+            elif line['state'] == 'deselcted':
+                label.config(font=self.deselected_font)
+            else:   # Default to disabled
                 label.config(font=self.disabled_font)
         
     
@@ -191,6 +225,8 @@ class popup_menu:
         self.current_screen = self.last_screen
         if self.popup_frame:
             self.popup_frame.destroy()
+        if self.border_frame:
+            self.border_frame.destroy()
         return self.last_screen
     
     
