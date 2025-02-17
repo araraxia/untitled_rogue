@@ -3,12 +3,8 @@
 import sys, os, json
 import tkinter as tk
 from tkinter import font
-
-loggerdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'loggers')
-sys.path.append(loggerdir)        
-
-from untitled_logger import logger # type: ignore
-from main_menu import main_menu # type: ignore
+from loggers.untitled_logger import logger # type: ignore
+from main_menu import main_menu
 class Untgap:
     def __init__(self, root, conf_path='conf/conf.json'):
         
@@ -107,11 +103,11 @@ class Untgap:
             self.load_title(self.title_label, self.window_width // 2, self.window_height // 2)
        
         elif self.current_screen == "in_game":
-            logger.debug("Loading main menu.")
             game_frames = self.init_frames(self.font_height, self.header_conf['pady'], self.footer_conf['pady'])
             self.pack_game_frames(game_frames)
             
         elif self.current_screen == "main_menu":
+            logger.debug("Loading main menu.")
             self.init_menu_screen()
 
       

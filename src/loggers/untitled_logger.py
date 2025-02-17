@@ -15,28 +15,29 @@ info_path = os.path.join(logs_dir, info_file)
 error_path = os.path.join(logs_dir, error_file)
 
 # Create logger
-logger = logging.getLogger('shared_logger')
+logger = logging.getLogger('untitled_logger')
 logger.setLevel(logging.DEBUG)
 logger.propagate = False
 
 # Create handlers
-info_handler = logging.FileHandler(info_path)
-error_handler = logging.FileHandler(error_path)
-debug_handler = logging.StreamHandler()
+if not logger.handlers:
+    info_handler = logging.FileHandler(info_path)
+    error_handler = logging.FileHandler(error_path)
+    debug_handler = logging.StreamHandler()
 
-# Set levels for handlers
-info_handler.setLevel(logging.INFO)
-error_handler.setLevel(logging.ERROR)
-debug_handler.setLevel(logging.DEBUG)
+    # Set levels for handlers
+    info_handler.setLevel(logging.INFO)
+    error_handler.setLevel(logging.ERROR)
+    debug_handler.setLevel(logging.DEBUG)
 
-# Create formatters and add them to handlers
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-info_handler.setFormatter(formatter)
-error_handler.setFormatter(formatter)
-debug_handler.setFormatter(formatter)
+    # Create formatters and add them to handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    info_handler.setFormatter(formatter)
+    error_handler.setFormatter(formatter)
+    debug_handler.setFormatter(formatter)
 
-# Add handlers to the logger
-logger.addHandler(info_handler)
-logger.addHandler(error_handler)
-logger.addHandler(debug_handler)
+    # Add handlers to the logger
+    logger.addHandler(info_handler)
+    logger.addHandler(error_handler)
+    logger.addHandler(debug_handler)
 

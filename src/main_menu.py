@@ -4,10 +4,7 @@
 import sys, os
 import tkinter as tk
 
-loggerdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'loggers')
-sys.path.append(loggerdir)
-
-from untitled_logger import logger # type: ignore
+from loggers.untitled_logger import logger
 from untitled_color import _reduce_brightness
 
 class main_menu:
@@ -113,6 +110,18 @@ class main_menu:
                 break
     
     def move_selection(self, direction):
+        """
+        Moves the selection in the menu based on the given direction.
+        Args:
+            direction (int): The direction to move the selection. Positive values move the selection down, 
+                             and negative values move the selection up.
+        Logs:
+            Logs the direction of the movement and the text of the new selection.
+        Behavior:
+            - If the new selection index is out of bounds, the function breaks.
+            - If the new selection is 'disabled' or 'title', it recursively calls itself with an adjusted direction.
+            - Updates the state of the current and new selection items.
+        """
         logger.debug(f'Moving selection {direction}')
         
         for index, line in enumerate(self.menu):
@@ -195,27 +204,13 @@ class main_menu:
         label_text = "A save file already exists. Do you want to overwrite it?"
         choices = ["Yes", "No"]
         
-        warning_frames = self.create_warning_frame()
+
         
     
-    def create_warning_frame(self):
-        frame_size = (self.root.winfo_width() // 4, self.root.winfo_height() // 4)
-        border_frame = (tk.Frame(self.root,
-                                width=frame_size[0],
-                                height=frame_size[1],
-                                bg=self.color_conf['frame'],
-                                borderwidth=self.display_conf['highlightThickness'],
-                                relief=self.display_conf['frameRelief']
-                                ))
-        
-        inner_frame = (tk.Frame(
-            self.root,
-            width=frame_size[0],
-            height=frame_size[1],
-            bg=self.color_conf['background']
-            ))
-        
-        return (inner_frame, border_frame)
+
+    
+    def back_to_menu(self):
+        pass
     
     def new_game(self):
         logger.info('New game selected')
