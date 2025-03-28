@@ -49,6 +49,18 @@ class Untgap:
         self.tile_x, self.tile_y, self.font_width, self.font_height, self.body_width, self.body_height = self.measure_font_size(self.font)
         
         self.init_components()
+
+        self.loaded_components = []
+
+        
+    def load_conf(self, path):
+        logger.debug("Loading configuration from %s", path)
+        
+        with open(path, 'r') as config_file:
+            config = json.load(config_file)
+        
+        logger.debug("Configuration loaded successfully.")
+        return config
         
         
     ### Gen Methods ###
@@ -76,20 +88,12 @@ class Untgap:
         for widget in self.root.winfo_children():
             logger.debug(f"Destroying widget: {widget}")
             widget.destroy()   
+            self.loaded_components = []
     
     def refresh_window(self):
         logger.debug("Refreshing window.")
         self.destroy_all_widgets()
         self.init_components()
-    
-    def load_conf(self, path):
-        logger.debug("Loading configuration from %s", path)
-        
-        with open(path, 'r') as config_file:
-            config = json.load(config_file)
-        
-        logger.debug("Configuration loaded successfully.")
-        return config
     
     
     ### Init Method ###
@@ -102,14 +106,14 @@ class Untgap:
             self.title_label = self.init_title_screen()
             self.load_title(self.title_label, self.window_width // 2, self.window_height // 2)
        
-        elif self.current_screen == "in_game":
-            game_frames = self.init_frames(self.font_height, self.header_conf['pady'], self.footer_conf['pady'])
-            self.pack_game_frames(game_frames)
-            
         elif self.current_screen == "main_menu":
             logger.debug("Loading main menu.")
             self.init_menu_screen()
 
+        elif self.current_screen == "in_game":
+            game_frames = self.init_frames(self.font_height, self.header_conf['pady'], self.footer_conf['pady'])
+            self.pack_game_frames(game_frames)
+            
       
     ### Game Frames ###
     def pack_game_frames(self, game_frames):
@@ -178,6 +182,7 @@ class Untgap:
     ### Title Screen ###
     def load_title(self, title_label, x_pos, y_pos):
         title_label.place(x=x_pos, y=y_pos, anchor="center") 
+        self.loaded_components.append({'title_label': title_label})
         
     def init_title_screen(self): 
         logger.debug("Creating title screen.")

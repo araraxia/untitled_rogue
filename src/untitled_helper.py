@@ -4,9 +4,11 @@
 
 import tkinter as tk
 from loggers.untitled_logger import logger
+import os
 
+CONF_PATH = os.path.join('conf', 'conf.json')
 class untitledHelper:
-    def __init__(self, conf='conf/conf.json'):
+    def __init__(self, conf=CONF_PATH):
         logger.debug("Initializing untitled helper module.")
         self.conf = conf
         
