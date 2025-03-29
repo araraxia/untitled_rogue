@@ -4,10 +4,11 @@ import sys, os, json
 import tkinter as tk
 from tkinter import font
 from loggers.untitled_logger import logger # type: ignore
+from untitled_helper import untitledHelper
+from untitled_title_screen import UntitledTitleScreen
 from main_menu import main_menu
 class Untgap:
     def __init__(self, root, conf_path='conf/conf.json'):
-        
         logger.debug(f"Initializing Untitled Game Application with configuration file {conf_path}.")
         self.conf = self.load_conf(conf_path)
         
@@ -49,7 +50,6 @@ class Untgap:
         self.tile_x, self.tile_y, self.font_width, self.font_height, self.body_width, self.body_height = self.measure_font_size(self.font)
         
         self.init_components()
-
         self.loaded_components = []
 
         
@@ -64,51 +64,32 @@ class Untgap:
         
         
     ### Gen Methods ###
-    def measure_font_size(self, font_settings):
-        logger.debug("Measuring font size.")
-        
-        test_font = font.Font(family=font_settings[0], size=font_settings[1], weight=font_settings[2])
-        width = test_font.measure("W")  # Measure the width of a character
-        height = test_font.metrics("linespace")  # Measure the height of a character
-        logger.debug(f"Character size in pixels: {width}x{height}")
-        
-        body_height = (self.window_height - (height * 2) - (self.frame_pad * 3) - (self.border_thickness * 3))
-        body_width = (self.window_width - self.frame_pad - self.border_thickness)
-        
-        tile_x = body_width // width
-        tile_y = body_height // height
-        
-        logger.debug(f"Tile size in characters: {tile_x}x{tile_y}")
-        logger.debug(f"Body frame height: {body_height}")
-        logger.debug(f"Body frame width: {body_width}")
-        
-        return tile_x, tile_y, width, height, body_width, body_height
-
-    def destroy_all_widgets(self):
-        for widget in self.root.winfo_children():
-            logger.debug(f"Destroying widget: {widget}")
-            widget.destroy()   
-            self.loaded_components = []
-    
     def refresh_window(self):
         logger.debug("Refreshing window.")
-        self.destroy_all_widgets()
+
+        last_frame = []
+        for widget in self.root.winfo_children():
+            last_frame.append(widget)
+            
         self.init_components()
+        untitledHelper.destroy_listed_widgets(self, last_frame)
     
     
     ### Init Method ###
     def init_components(self):
-        self.tile_x, self.tile_y, self.font_width, self.font_height, self.body_width, self.body_height = self.measure_font_size(self.font)
+        self.tile_x, self.tile_y, self.font_width, self.font_height, self.body_width, self.body_height = untitledHelper.measure_font_size(self.font)
         logger.debug(f"init_components - current_screen: {self.current_screen}")
         
         if self.current_screen == "title_screen":
             logger.debug("Loading title screen.")
-            self.title_label = self.init_title_screen()
-            self.load_title(self.title_label, self.window_width // 2, self.window_height // 2)
+            untitled_title = UntitledTitleScreen(self.root, self.conf)
+            self.title_label = untitled_title.init_title_screen(self.font, self.bg, self.fg)
+            untitled_title.load_title(self.title_label, self.window_width // 2, self.window_height // 2)
        
         elif self.current_screen == "main_menu":
             logger.debug("Loading main menu.")
-            self.init_menu_screen()
+            self.main_menu = main_menu(self.root, self.conf)
+            self.current_screen = self.main_menu.init_menu()
 
         elif self.current_screen == "in_game":
             game_frames = self.init_frames(self.font_height, self.header_conf['pady'], self.footer_conf['pady'])
@@ -178,25 +159,6 @@ class Untgap:
         
         return game_frames
 
-
-    ### Title Screen ###
-    def load_title(self, title_label, x_pos, y_pos):
-        title_label.place(x=x_pos, y=y_pos, anchor="center") 
-        self.loaded_components.append({'title_label': title_label})
-        
-    def init_title_screen(self): 
-        logger.debug("Creating title screen.")
-        title_message = "untitled rogue\n\npress any key to start"
-        title_label = tk.Label(self.root, text=title_message, font=self.font, bg=self.bg, fg=self.fg)
-
-        return title_label
-
-
-    ### Main Menu ###
-    def init_menu_screen(self):
-        self.main_menu = main_menu(self.root, self.conf)
-        self.current_screen = self.main_menu.init_menu()
-        
 
     ### Event handlers ###
     def on_key_press(self, event):

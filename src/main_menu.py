@@ -205,10 +205,6 @@ class main_menu:
         choices = ["Yes", "No"]
         
 
-        
-    
-
-    
     def back_to_menu(self):
         pass
     
