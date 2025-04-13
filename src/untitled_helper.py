@@ -13,6 +13,7 @@ class untitledHelper:
         logger.debug("Initializing untitled helper module.")
         self.conf = conf
         
+    
         
     def create_frame(self, parent, bg, borderwidth, relief, **kwargs):
         """

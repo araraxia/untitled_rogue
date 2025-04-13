@@ -11,7 +11,6 @@ from main_menu import MainMenu
 
 class Untgap:
     def __init__(self, root, conf_path="conf/conf.json"):
-
         logger.debug(
             f"Initializing Untitled Game Application with configuration file {conf_path}."
         )
@@ -56,7 +55,6 @@ class Untgap:
         ) = untitledHelper.measure_font_size(self.font)
 
         self.init_components()
-
         self.loaded_components = []
 
     def load_conf(self, path):
@@ -65,8 +63,12 @@ class Untgap:
         with open(path, "r") as config_file:
             config = json.load(config_file)
 
-        logger.debug("Configuration loaded successfully.")
-        return config
+        if config:
+            logger.info("Configuration loaded successfully.")
+            return config
+        else:
+            logger.error("Failed to load configuration.")
+            sys.exit(1)
 
     ### Gen Methods ###
     def destroy_all_widgets(self):
@@ -77,7 +79,11 @@ class Untgap:
 
     def refresh_window(self):
         logger.debug("Refreshing window.")
-        self.destroy_all_widgets()
+
+        last_frame = []
+        for widget in self.root.winfo_children():
+            last_frame.append(widget)
+
         self.init_components()
 
     ### Init Method ###
