@@ -73,3 +73,6 @@ class UntGame(Untgap):
         }
 
         return game_frames
+
+        
+    def run(self): ...
