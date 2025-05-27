@@ -4,16 +4,12 @@
 
 import tkinter as tk
 from tkinter import font
-from loggers.untitled_logger import logger
 import os
 
-CONF_PATH = os.path.join('conf', 'conf.json')
 class untitledHelper:
-    def __init__(self, conf=CONF_PATH):
-        logger.debug("Initializing untitled helper module.")
+    def __init__(self, conf, logger):
+        self.logger.debug("Initializing untitled helper module.")
         self.conf = conf
-        
-    
         
     def create_frame(self, parent, bg, borderwidth, relief, **kwargs):
         """
