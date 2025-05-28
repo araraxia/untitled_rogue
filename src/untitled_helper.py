@@ -4,13 +4,8 @@
 
 import tkinter as tk
 from tkinter import font
-import os
 
 class untitledHelper:
-    def __init__(self, conf, logger):
-        self.logger.debug("Initializing untitled helper module.")
-        self.conf = conf
-        
     def create_frame(self, parent, bg, borderwidth, relief, **kwargs):
         """
         Creates a composite frame consisting of an outer border frame and an inner frame.
@@ -32,20 +27,20 @@ class untitledHelper:
             relief=relief,
             **kwargs
         )
-        
+
         inner_frame = tk.Frame(
             border_frame,
             bg=bg,
             **kwargs
         )
-        
+
         frame = {
             'inner': inner_frame,
             'border': border_frame
         }
-        
+
         return frame
-    
+
     def measure_font_size(self, font_settings):
         """
         Measures the font size and calculates the number of tiles that can fit 
@@ -62,14 +57,14 @@ class untitledHelper:
                 - width (int): The width of a single character in pixels.
                 - height (int): The height of a single character in pixels.
         """
-        logger.debug("Measuring font size.")
+        self.logger.debug("Measuring font size.")
 
         test_font = font.Font(
             family=font_settings[0], size=font_settings[1], weight=font_settings[2]
         )
         width = test_font.measure("W")  # Measure the width of a character
         height = test_font.metrics("linespace")  # Measure the height of a character
-        logger.debug(f"Character size in pixels: {width}x{height}")
+        self.logger.debug(f"Character size in pixels: {width}x{height}")
 
         body_height = (
             self.window_height
@@ -82,8 +77,21 @@ class untitledHelper:
         tile_x = body_width // width
         tile_y = body_height // height
 
-        logger.debug(f"Tile size in characters: {tile_x}x{tile_y}")
-        logger.debug(f"Body frame height: {body_height}")
-        logger.debug(f"Body frame width: {body_width}")
+        self.logger.debug(f"Tile size in characters: {tile_x}x{tile_y}")
+        self.logger.debug(f"Body frame height: {body_height}")
+        self.logger.debug(f"Body frame width: {body_width}")
 
         return width, height
+
+    @staticmethod
+    def clear_root(func):
+        def wrapper(self, *args, **kwargs):
+            for widget in self.winfo_children():
+                widget.destroy()
+            if hasattr(self, "update_idletasks"):
+                self.update_idletasks()
+            if hasattr(self, "logger"):
+                self.logger.debug("Cleared root window.")
+            return func(self, *args, **kwargs)
+
+        return wrapper

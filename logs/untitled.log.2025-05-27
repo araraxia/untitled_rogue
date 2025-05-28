@@ -1,0 +1,60 @@
+2025-05-27 18:02:50,818 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:02:50,819 - DEBUG - Untitled - untitled_title_screen - Loading configuration from conf/title_conf.json
+2025-05-27 18:02:50,820 - DEBUG - Untitled - untitled_title_screen - init title screen
+2025-05-27 18:03:38,210 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:03:38,210 - DEBUG - Untitled - untitled_title_screen - Loading configuration from conf/title_conf.json
+2025-05-27 18:03:38,211 - DEBUG - Untitled - untitled_title_screen - init title screen
+2025-05-27 18:03:52,632 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:03:52,633 - DEBUG - Untitled - untitled_title_screen - Loading configuration from conf/title_conf.json
+2025-05-27 18:03:52,633 - DEBUG - Untitled - untitled_title_screen - init title screen
+2025-05-27 18:03:52,637 - DEBUG - Untitled - untitled_title_screen - Title screen loaded and waiting for interaction.
+2025-05-27 18:04:01,635 - DEBUG - Untitled - untitled_title_screen - Key pressed: Return
+2025-05-27 18:04:03,041 - DEBUG - Untitled - untitled_title_screen - Key pressed: z
+2025-05-27 18:04:03,698 - DEBUG - Untitled - untitled_title_screen - Key pressed: z
+2025-05-27 18:04:03,883 - DEBUG - Untitled - untitled_title_screen - Key pressed: z
+2025-05-27 18:04:04,393 - DEBUG - Untitled - untitled_title_screen - Key pressed: f
+2025-05-27 18:04:04,650 - DEBUG - Untitled - untitled_title_screen - Key pressed: f
+2025-05-27 18:04:04,720 - DEBUG - Untitled - untitled_title_screen - Key pressed: d
+2025-05-27 18:04:04,801 - DEBUG - Untitled - untitled_title_screen - Key pressed: s
+2025-05-27 18:04:04,849 - DEBUG - Untitled - untitled_title_screen - Key pressed: a
+2025-05-27 18:04:05,713 - DEBUG - Untitled - untitled_title_screen - Key pressed: f
+2025-05-27 18:04:05,858 - DEBUG - Untitled - untitled_title_screen - Key pressed: d
+2025-05-27 18:04:05,889 - DEBUG - Untitled - untitled_title_screen - Key pressed: s
+2025-05-27 18:04:05,914 - DEBUG - Untitled - untitled_title_screen - Key pressed: a
+2025-05-27 18:04:06,099 - DEBUG - Untitled - untitled_title_screen - Key pressed: f
+2025-05-27 18:04:06,225 - DEBUG - Untitled - untitled_title_screen - Key pressed: d
+2025-05-27 18:04:06,250 - DEBUG - Untitled - untitled_title_screen - Key pressed: s
+2025-05-27 18:04:06,289 - DEBUG - Untitled - untitled_title_screen - Key pressed: a
+2025-05-27 18:04:07,137 - DEBUG - Untitled - untitled_title_screen - Key pressed: Win_L
+2025-05-27 18:05:43,007 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:05:43,008 - DEBUG - Untitled - untitled_title_screen - Loading configuration from conf/title_conf.json
+2025-05-27 18:05:43,009 - DEBUG - Untitled - untitled_title_screen - init title screen
+2025-05-27 18:05:43,013 - DEBUG - Untitled - untitled_title_screen - Title screen loaded and waiting for interaction.
+2025-05-27 18:05:44,624 - DEBUG - Untitled - untitled_title_screen - Key pressed: c
+2025-05-27 18:06:02,676 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:06:02,676 - DEBUG - Untitled - untitled_title_screen - Loading configuration from conf/title_conf.json
+2025-05-27 18:06:02,677 - DEBUG - Untitled - untitled_title_screen - init title screen
+2025-05-27 18:06:02,680 - DEBUG - Untitled - untitled_title_screen - Setting title screen position: x=0.5, y=0.6666666666666666, sy=0.3333333333333333
+2025-05-27 18:06:02,680 - DEBUG - Untitled - untitled_title_screen - Title screen loaded and waiting for interaction.
+2025-05-27 18:08:32,556 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:08:32,557 - DEBUG - Untitled - untitled_title_screen - Loading configuration from conf/title_conf.json
+2025-05-27 18:08:32,557 - DEBUG - Untitled - untitled_title_screen - init title screen
+2025-05-27 18:08:32,625 - DEBUG - Untitled - untitled_title_screen - Setting title screen position: x=400.0, y=400.0, sy=200.0
+2025-05-27 18:08:32,625 - DEBUG - Untitled - untitled_title_screen - Title screen loaded and waiting for interaction.
+2025-05-27 18:08:36,704 - DEBUG - Untitled - untitled_title_screen - Key pressed: Return
+2025-05-27 18:09:18,780 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:09:18,781 - DEBUG - Untitled - untitled_title_screen - Loading configuration from conf/title_conf.json
+2025-05-27 18:09:18,782 - DEBUG - Untitled - untitled_title_screen - init title screen
+2025-05-27 18:09:18,854 - DEBUG - Untitled - untitled_title_screen - Setting title screen position: x=400.0, y=200.0, sy=400.0
+2025-05-27 18:09:18,855 - DEBUG - Untitled - untitled_title_screen - Title screen loaded and waiting for interaction.
+2025-05-27 18:09:23,995 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:09:23,996 - DEBUG - Untitled - untitled_title_screen - Loading configuration from conf/title_conf.json
+2025-05-27 18:09:23,997 - DEBUG - Untitled - untitled_title_screen - init title screen
+2025-05-27 18:09:24,102 - DEBUG - Untitled - untitled_title_screen - Setting title screen position: x=400.0, y=200.0, sy=300.0
+2025-05-27 18:09:24,103 - DEBUG - Untitled - untitled_title_screen - Title screen loaded and waiting for interaction.
+2025-05-27 18:09:39,782 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:09:49,829 - DEBUG - Untitled - untitled_logger - logger initialized
+2025-05-27 18:09:49,936 - DEBUG - Untitled - untitled_title_screen - Loading configuration from conf/title_conf.json
+2025-05-27 18:09:49,937 - DEBUG - Untitled - untitled_title_screen - init title screen
+2025-05-27 18:09:49,945 - DEBUG - Untitled - untitled_title_screen - Setting title screen position: x=400.0, y=200.0, sy=300.0
+2025-05-27 18:09:49,945 - DEBUG - Untitled - untitled_title_screen - Title screen loaded and waiting for interaction.
