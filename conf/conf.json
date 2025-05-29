@@ -71,41 +71,6 @@
     "footer": {
         "pady": 4
     },
-    "main_menu": {
-        "padding": 20,
-        "title":{
-            "fontFamily": "Courier",
-            "fontSize": 48,
-            "fontWeight": "bold",
-            "fg": "foreground",
-            "bg": "background",
-            "reduced": 0
-        },
-        "selected":{
-            "fontFamily": "Courier",
-            "fontSize": 20,
-            "fontWeight": "bold",
-            "fg": "foreground",
-            "bg": "background",
-            "reduced": 20
-        },
-        "deselected":{
-            "fontFamily": "Courier",
-            "fontSize": 20,
-            "fontWeight": "normal",
-            "fg": "foreground",
-            "bg": "background",
-            "reduced": 50
-        },
-        "disabled":{
-            "fontFamily": "Courier",
-            "fontSize": 20,
-            "fontWeight": "italic",
-            "fg": "foreground",
-            "bg": "background",
-            "reduced": 80
-        }
-    },
     "pop_up_default": {
         "padding": 20,
         "leading": 10,

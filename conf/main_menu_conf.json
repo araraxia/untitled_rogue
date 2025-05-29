@@ -1,0 +1,35 @@
+{
+    "padding": 20,
+    "title":{
+        "fontFamily": "Courier",
+        "fontSize": 48,
+        "fontWeight": "bold",
+        "fg": "#FFFFFF",
+        "bg": "#000000",
+        "reduced": 0
+    },
+    "selected":{
+        "fontFamily": "Courier",
+        "fontSize": 20,
+        "fontWeight": "bold",
+        "fg": "#FFFFFF",
+        "bg": "#000000",
+        "reduced": 20
+    },
+    "deselected":{
+        "fontFamily": "Courier",
+        "fontSize": 20,
+        "fontWeight": "normal",
+        "fg": "#FFFFFF",
+        "bg": "#000000",
+        "reduced": 50
+    },
+    "disabled":{
+        "fontFamily": "Courier",
+        "fontSize": 20,
+        "fontWeight": "italic",
+        "fg": "#FFFFFF",
+        "bg": "#000000",
+        "reduced": 80
+    }
+}
