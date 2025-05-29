@@ -85,9 +85,18 @@ class untitledHelper:
 
     @staticmethod
     def clear_root(func):
+        """
+        Decorator to clear the root window of most common things.
+        Destroys:
+            - All child widgets
+            - Unbinds all event types
+            - Calls update_idletasks if available
+        """
         def wrapper(self, *args, **kwargs):
             for widget in self.winfo_children():
                 widget.destroy()
+            for event in self.event_types:
+                self.unbind(event)
             if hasattr(self, "update_idletasks"):
                 self.update_idletasks()
             if hasattr(self, "logger"):
