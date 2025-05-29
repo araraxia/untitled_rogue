@@ -6,12 +6,13 @@ import tkinter as tk
 import json
 
 class UntitledTitleScreen():
-    def __init__(self, root, conf, log):
+    def __init__(self, root):
         self.root = root
         self.root.update()
-        self.log = log
-        self.conf = conf
+        self.log = root.logger
+        self.conf = root.config
         self.init_conf()
+        self.root.configure(bg=self.conf.get("colors", {}).get("background", "#000000"))
         self.init_title_screen()
         
     def load_title(self):
@@ -75,3 +76,6 @@ class UntitledTitleScreen():
         
     def on_key_press(self, event):
         self.log.debug(f"Key pressed: {event.keysym}")
+        self.root.current_screen = "main_menu"
+        self.root.load_screen()
+        
