@@ -1,7 +1,7 @@
 
 
 import tkinter as tk
-import json, pickle, sys
+import json, pickle, sys, pygame
 from functools import wraps
 from src.loggers.untitled_logger import setup_logger
 from src.untitled_title_screen import UntitledTitleScreen
@@ -12,12 +12,19 @@ class UntitledRogueApp(tk.Tk):
     def __init__(self, config_path='conf/conf.json'):
         super().__init__()
         self.logger = setup_logger()
-        self.title("Untitled Rogue")
-        self.geometry("800x600")
+        self.audio_map = self.load_audio()
         self.config = self.load_config(config_path)
         self.current_screen = "title"
+        self.title("Untitled Rogue")
+        self.geometry("800x600")
         self.load_screen()
 
+    # Init methods
+    def load_audio(self):
+        pygame.mixer.init()
+        with open('conf/audio_mapping.json', 'r') as file:
+            audio_map = json.load(file)
+        return audio_map
 
     def load_config(self, path):
         self.event_types = [
@@ -29,13 +36,7 @@ class UntitledRogueApp(tk.Tk):
         with open(path, 'r') as file:
             return json.load(file)
     
-    def clear_root(func):
-        def wrapper(self, *args, **kwargs):
-            for widget in self.winfo_children():
-                widget.destroy()
-            self.logger.debug("Cleared root window.")
-            return func(self, *args, **kwargs)
-        return wrapper
+    # Screen Loading Methods
 
     def load_screen(self):
         directory = {
@@ -58,13 +59,20 @@ class UntitledRogueApp(tk.Tk):
     def load_main_menu(self):
         main_menu = MainMenu(self,)
         
-    def play_sound(self, sound):
+    # Engine Methods
+        
+    def play_sound(self, sound_obj: object):
         """
         Placeholder for sound playing functionality.
         This method should be implemented to play sounds.
         """
-        self.logger.debug(f"Playing sound: {sound.name}")
-        # Implement sound playing logic here
+        self.logger.debug(f"Playing sound: {sound_obj.name}")
+        try:
+            sound_obj.sound.play()
+        except pygame.error as e:
+            self.logger.error(f"Error playing sound {sound_obj.name}: {e}")
+        except AttributeError:
+            self.logger.error(f"Sound object {sound_obj.name} does not have a sound attribute.")
         pass
         
     
