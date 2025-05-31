@@ -16,7 +16,10 @@ class UntitledRogueApp(tk.Tk):
         self.config = self.load_config(config_path)
         self.current_screen = "title"
         self.title("Untitled Rogue")
-        self.geometry("800x600")
+        self.window_width = 800
+        self.window_height = int((self.window_width * 3) // 4)
+        self.geometry(f"{self.window_width}x{self.window_height}")
+        self.resizable(True, True)
         self.load_screen()
 
     # Init methods
@@ -42,6 +45,7 @@ class UntitledRogueApp(tk.Tk):
         directory = {
             "title": self.load_title,
             "main_menu": self.load_main_menu,
+            "char_creation": self.load_char_creation,
         }
         if self.current_screen in directory:
             self.logger.debug(f"Loading screen: {self.current_screen}")
@@ -58,6 +62,12 @@ class UntitledRogueApp(tk.Tk):
     @untitledHelper.clear_root
     def load_main_menu(self):
         main_menu = MainMenu(self,)
+    
+    @untitledHelper.clear_root
+    def load_char_creation(self):
+        from src.char_creation import CharCreator
+        char_creator = CharCreator(self)
+        char_creator.create_character()
         
     # Engine Methods
         
