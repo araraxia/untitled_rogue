@@ -4,8 +4,14 @@
 
 import tkinter as tk
 from tkinter import font
+from functools import wraps
+import json, os, pickle
 
 class untitledHelper:
+    def __init__(self, root):
+        self.root = root
+        self.logger = root.logger
+        
     def create_frame(self, parent, bg, borderwidth, relief, **kwargs):
         """
         Creates a composite frame consisting of an outer border frame and an inner frame.
@@ -104,3 +110,61 @@ class untitledHelper:
             return func(self, *args, **kwargs)
 
         return wrapper
+
+    def load_json(self, path):
+        """
+        Loads a JSON file from the given path.
+        
+        Args:
+            path (str): The path to the JSON file.
+        
+        Returns:
+            dict: The loaded JSON data.
+        """
+        self.logger.debug(f"Loading JSON configuration from {path}")
+        with open(path, 'r') as file:
+            data = json.load(file)
+        self.logger.debug("JSON configuration loaded successfully.")
+        return data
+    
+    def save_json(self, data, path):
+        """
+        Saves data to a JSON file at the specified path.
+        
+        Args:
+            data (dict): The data to save.
+            path (str): The path where the JSON file will be saved.
+        """
+        self.logger.debug(f"Saving JSON configuration to {path}")
+        with open(path, 'w') as file:
+            json.dump(data, file, indent=4)
+        self.logger.debug("JSON configuration saved successfully.")
+        
+    def load_pickle(self, path):
+        """
+        Loads a pickle file from the given path.
+        Args:
+            path (str): The path to the pickle file.
+        Returns:
+            object: The loaded data from the pickle file.
+        """
+        self.logger.debug(f"Loading pickle data from {path}")
+        with open(path, 'rb') as file:
+            data = pickle.load(file)
+        self.logger.debug("Pickle data loaded successfully.")
+        return data
+    
+    def save_pickle(self, data, path):
+        """
+        Saves data to a pickle file at the specified path.
+        
+        Args:
+            data (object): The data to save.
+            path (str): The path where the pickle file will be saved.
+        """
+        self.logger.debug(f"Saving pickle data to {path}")
+        with open(path, 'wb') as file:
+            pickle.dump(data, file)
+        self.logger.debug("Pickle data saved successfully.")
+        
+    

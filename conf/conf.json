@@ -65,6 +65,17 @@
         "button_6": "d",
         "pause": "Escape"
     },
+    "frame": {
+        "bg": "background",
+        "border_width": 4,
+        "border_color": "frame",
+        "highlight_thickness": 4,
+        "highlight_color": "frame",
+        "highlight_background": "background",
+        "relief": "ridge",
+        "padx": 4,
+        "pady": 4
+    },
     "header": {
         "pady": 4
     },

@@ -20,6 +20,7 @@ class UntitledRogueApp(tk.Tk):
         self.window_height = int((self.window_width * 3) // 4)
         self.geometry(f"{self.window_width}x{self.window_height}")
         self.resizable(True, True)
+        self.helper = untitledHelper(self)
         self.load_screen()
 
     # Init methods

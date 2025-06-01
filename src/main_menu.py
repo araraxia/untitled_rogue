@@ -232,6 +232,8 @@ class MainMenu:
         if os.path.exists("sav/save.json"):
             if not self.warning_overwrite_save():
                 return
+        self.root.current_window = "char_creation"
+        
         pass
 
     def load_game(self):
